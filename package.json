@@ -1,0 +1,38 @@
+{
+  "name": "dome-soya",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "analyze": "BUNDLE_ANALYZE=both soya-next-scripts build",
+    "analyze:browser": "BUNDLE_ANALYZE=browser soya-next-scripts build",
+    "analyze:server": "BUNDLE_ANALYZE=server soya-next-scripts build",
+    "build": "soya-next-scripts build",
+    "dev": "soya-next-scripts dev",
+    "eject": "soya-next-scripts eject",
+    "start": "soya-next-server",
+    "test": "soya-next-scripts test"
+  },
+  "dependencies": {
+    "apollo-client": "2.3.5",
+    "config": "1.30.0",
+    "es6-promise": "^4.2.4",
+    "express": "4.16.3",
+    "formik": "^1.0.1",
+    "graphql": "0.13.2",
+    "isomorphic-fetch": "^2.2.1",
+    "next": "5.1.0",
+    "npm": "^6.2.0",
+    "prop-types": "15.6.2",
+    "react": "16.4.1",
+    "react-apollo": "2.1.9",
+    "react-cookie": "2.1.1",
+    "react-dom": "16.4.1",
+    "react-redux": "5.0.7",
+    "redux": "3.7.2",
+    "soya-next": "0.5.8",
+    "soya-next-server": "0.5.8"
+  },
+  "devDependencies": {
+    "soya-next-scripts": "0.5.9"
+  }
+}

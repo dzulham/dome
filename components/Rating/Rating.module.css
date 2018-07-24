@@ -1,0 +1,17 @@
+.rating {
+  display: flex;
+}
+
+.star {
+  background-image: url(./icons/star-green.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 5px;
+  height: 15px;
+  width: 15px;
+}
+
+.dimStar {
+  background-image: url(./icons/star.svg);
+  composes: star;
+}
