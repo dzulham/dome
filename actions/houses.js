@@ -1,7 +1,7 @@
 import fetch from "isomorphic-fetch"
 
 export function fetchHouses() {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(fetchHousesNew())
     fetch('https://dome.now.sh/api/houses')
       .then(
@@ -18,8 +18,8 @@ export function fetchHouses() {
         const errorString = String(error).toLowerCase()
         dispatch(fetchHousesFailed(errorString))
       }
-      );
-  };
+    )
+  }
 }
 
 export const FETCH_HOUSES = "FETCH_HOUSES"

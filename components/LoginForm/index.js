@@ -10,7 +10,7 @@ const LoginForm = (props) => (
     
     onSubmit={(values, actions) => {
       setTimeout(() => {
-        props.router.push("/search?query=" + values.username)
+        props.router.push("/houses?query=" + values.username)
         actions.setSubmitting(false)
       }, 1000)
     }}

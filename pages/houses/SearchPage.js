@@ -25,17 +25,12 @@ class SearchPage extends React.Component {
     this.reduceDataWithQuery = this.reduceDataWithQuery.bind(this)
   }
 
-  componentWillMount() {
-    this.props.fetchHouses()
-    this.props.fetchUsers()
-  }
-
   handleSearch(query) {
     this.setState({ query })
   }
 
   reduceDataWithQuery(houses, users) {
-    const query = this.state.query
+    const query = this.state.query.toLowerCase()
     const reduced = houses.reduce(
       (result, h) => {
         const house = {
@@ -47,7 +42,7 @@ class SearchPage extends React.Component {
           house.name,
           house.price,
           house.user.address
-        ].join(' ')
+        ].join(' ').toLowerCase()
 
         if(details.indexOf(query) !== -1) {
           result.push(house)
