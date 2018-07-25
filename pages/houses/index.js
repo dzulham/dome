@@ -48,7 +48,7 @@ class Houses extends React.Component {
         result[_house.id] = _house
       }
       return result
-    }, [])[router.query.house] || {}
+    }, [])[router.query.house] || null
     const viewing = this.props.router.query.house
 
     return (
@@ -57,7 +57,7 @@ class Houses extends React.Component {
           fetching && <Loading text="fetching..." /> ||
           error && <Loading text="an error occured" /> ||
           viewing &&
-          <HousePage house={house} /> ||
+          house && <HousePage house={house} /> ||
           <SearchPage houses={houses} users={users} router={router} />
         }
       </div>

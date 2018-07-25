@@ -51,7 +51,7 @@ class SearchPage extends React.Component {
   }
 
   render() {
-    const { houses, users } = this.props
+    const { houses, users, router } = this.props
 
     const startTime = new Date()
     const data = this.reduceDataWithQuery(houses, users)
@@ -65,7 +65,8 @@ class SearchPage extends React.Component {
           query={this.state.query}
           time={queryTime}
           amount={data.length}
-          onSearch={this.handleSearch} />
+          onSearch={this.handleSearch}
+          router={router} />
         <CardList houses={data} />
       </Layout>
     )

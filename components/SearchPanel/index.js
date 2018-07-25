@@ -13,7 +13,8 @@ class SearchPanel extends Component
     onSearch: PropTypes.func.isRequired, 
     time: PropTypes.string.isRequired, 
     amount: PropTypes.number.isRequired, 
-    query: PropTypes.string.isRequired
+    query: PropTypes.string.isRequired,
+    router: PropTypes.object.isRequired
   }
 
   constructor(props) {
@@ -25,6 +26,9 @@ class SearchPanel extends Component
   }
 
   handleToggle() {
+    if(this.state.searching) {
+      this.props.router.push('/houses?query=' + this.props.query)
+    }
     this.setState((prevState) => {
       return { searching: !prevState.searching }
     })

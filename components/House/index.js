@@ -21,12 +21,12 @@ const House = (props) => (
 )
 
 House.propTypes = {
-  image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  rooms: PropTypes.number.isRequired,
-  size: PropTypes.number.isRequired,
-  windows: PropTypes.number.isRequired,
-  user: PropTypes.object.isRequired
+  image: PropTypes.array,
+  name: PropTypes.string,
+  rooms: PropTypes.number,
+  size: PropTypes.number,
+  windows: PropTypes.number,
+  user: PropTypes.object
 }
 
 export default House
