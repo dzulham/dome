@@ -8,7 +8,7 @@ const SearchBox = (props) => (
   <Formik
     initialValues={{ query: '' }}
     onSubmit={(values, actions) => {
-      Router.push("/search?query=" + values.query)
+      Router.push("/houses?query=" + values.query)
       actions.setSubmitting(false)
     }}
     validate={values => {

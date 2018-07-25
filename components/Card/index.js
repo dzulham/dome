@@ -11,6 +11,7 @@ class Card extends Component
     title: PropTypes.string.isRequired,
     detail: PropTypes.string,
     price: PropTypes.node.isRequired,
+    onClick: PropTypes.func
   }
 
   constructor(props) {
@@ -18,11 +19,11 @@ class Card extends Component
   }
 
   render() {
-    const { image, title, detail, price } = this.props
+    const { image, title, detail, price, onClick } = this.props
     const formattedPrice = price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); 
 
     return (
-      <div className={styles.card}>
+      <div onClick={onClick} className={styles.card}>
         <img src={image} alt={image} />
         <h3>{title}</h3>
         <div className={styles.detail}>

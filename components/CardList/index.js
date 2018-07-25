@@ -3,29 +3,25 @@ import PropTypes from "prop-types"
 import styles from "./CardList.module.css"
 import "../../styles/global.css"
 import Card from "../Card"
+import Router from "next/router"
 
 class CardList extends Component {
   
   static propTypes = {
-    houses: PropTypes.array.isRequired,
-    status: PropTypes.object.isRequired
+    houses: PropTypes.array.isRequired
   }
 
   render() {
-    const { fetching, error } = this.props.status
 
     return (
       <div className={styles.cardlist}>
         { 
-          fetching &&
-          <div className={styles.notice}>{'fetching...'}</div> ||
-
-          error &&
-          <div className={styles.notice}>{error}</div> ||
-
           this.props.houses.map((house) => {
             return (
               <Card
+                onClick={() => {
+                  Router.push("/houses?house=" + house.id)
+                }}
                 key={house.id}
                 title={house.name}
                 image={house.photos}

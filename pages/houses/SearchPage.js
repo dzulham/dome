@@ -1,7 +1,6 @@
 import Layout from "../../components/Layout"
 import SearchPanel from "../../components/SearchPanel"
 import CardList from "../../components/CardList"
-import { withRouter } from "next/router"
 import PropTypes from "prop-types"
 import React from "react"
 
@@ -9,10 +8,8 @@ class SearchPage extends React.Component {
   
   static propTypes = {
     router: PropTypes.object.isRequired,
-    houses: PropTypes.object.isRequired,
-    users: PropTypes.object.isRequired,
-    fetchHouses: PropTypes.func.isRequired,
-    fetchUsers: PropTypes.func.isRequired
+    houses: PropTypes.array.isRequired,
+    users: PropTypes.array.isRequired
   }
 
   constructor(props) {
@@ -54,19 +51,12 @@ class SearchPage extends React.Component {
   }
 
   render() {
-    const { data: houses, isFetching: houseFetching, error: houseError } = this.props.houses
-    const { data: users, isFetching: userFetching, error: userError } = this.props.users
-    
-    const isFetched = !houseFetching && !userFetching
-    const IsNotError = !houseError && !userError
+    const { houses, users } = this.props
 
-    let data = [], queryTime = "0.000"
-    if(isFetched && IsNotError) {
-      const startTime = new Date()
-      data = this.reduceDataWithQuery(houses, users)
-      const endTime = new Date()
-      queryTime = (endTime - startTime).toFixed(3)
-    }
+    const startTime = new Date()
+    const data = this.reduceDataWithQuery(houses, users)
+    const endTime = new Date()
+    const queryTime = (endTime - startTime).toFixed(3)
 
     return (
       <Layout>
@@ -76,15 +66,10 @@ class SearchPage extends React.Component {
           time={queryTime}
           amount={data.length}
           onSearch={this.handleSearch} />
-        <CardList
-          houses={data}
-          status={{
-            fetching: !isFetched,
-            error: houseError || userError
-          }} />
+        <CardList houses={data} />
       </Layout>
     )
   }
 }
 
-export default withRouter(SearchPage)
+export default SearchPage

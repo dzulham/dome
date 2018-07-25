@@ -1,33 +1,33 @@
 import React from "react"
 import Layout from "../../components/Layout"
+import House from "../../components/House"
 import { withRouter } from "next/router"
+import PropTypes from "prop-types"
 
-class House extends React.Component {
-    
+class HousePage extends React.Component {
+  
+  static propTypes = {
+    house: PropTypes.object.isRequired
+  }
+
   render() {
-    const { data: houses, isFetching: houseFetching, error: houseError } = this.props.houses
-    const { data: users, isFetching: userFetching, error: userError } = this.props.users
+
+    const { photos, name, rooms, size, windows, user } = this.props.house
     
-    const isFetched = !houseFetching && !userFetching
-    const IsNotError = !houseError && !userError
-
-    const housesUsers = houses.map((house) => {
-      return {
-        ...house,
-        user: users.find(u => u.id === house.ownerId)
-      }
-    })
-
     return (
       <Layout>
         {
-          isFetched && IsNotError &&
-          <p>{JSON.stringify(housesUsers)}</p> ||
-          <p>...</p>
+          <House
+            image={photos} 
+            name={name}
+            rooms={rooms}
+            size={size}
+            windows={windows}
+            user={user} />
         }
       </Layout>
     )
   }
 }
 
-export default withRouter(DetailPage)
+export default withRouter(HousePage)
