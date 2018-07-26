@@ -1,4 +1,4 @@
-import reducers from "../../reducers"
+import reducers, { isLoading, hasError, mapHouseWithUsers } from "../../reducers"
 import { bindActionCreators } from "redux";
 import { createPage } from "soya-next"
 import actions from "../../actions";
@@ -13,8 +13,9 @@ class Houses extends React.Component {
 
   static propTypes = {
     router: PropTypes.object.isRequired,
-    houses: PropTypes.object.isRequired,
-    users: PropTypes.object.isRequired,
+    houses: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    error: PropTypes.string,
     fetchHouses: PropTypes.func.isRequired,
     fetchUsers: PropTypes.func.isRequired
   }
@@ -22,7 +23,7 @@ class Houses extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      viewing: props.router.query.house
+      viewing: props.router.query.id
     }
   }
 
@@ -32,33 +33,17 @@ class Houses extends React.Component {
   }
 
   render() {
-    const { router } = this.props
-    const { data: houses, isFetching: houseFetching, error: houseError } = this.props.houses
-    const { data: users, isFetching: userFetching, error: userError } = this.props.users
-    
-    const fetching = houseFetching || userFetching
-    const error = userError || houseError
-
-    const house = houses.reduce((result, h) => {
-      if(String(h.id) === router.query.house) {
-        const _house = {
-          ...h,
-          user: users.find(u => u.id === h.ownerId)
-        }
-        result[_house.id] = _house
-      }
-      return result
-    }, [])[router.query.house] || null
-    const viewing = this.props.router.query.house
+    const { router, houses, isLoading, error } = this.props
+    const viewing = this.props.router.query.id
 
     return (
       <div>
         {
-          fetching && <Loading text="fetching..." /> ||
+          isLoading && <Loading text="fetching..." /> ||
           error && <Loading text="an error occured" /> ||
           viewing &&
-          house && <HousePage house={house} /> ||
-          <SearchPage houses={houses} users={users} router={router} />
+          <HousePage house={houses.find(h => String(h.id) === router.query.id) || {}} /> ||
+          <SearchPage houses={houses} router={router} />
         }
       </div>
     )
@@ -67,8 +52,9 @@ class Houses extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    houses: state.houses,
-    users: state.users
+    houses: mapHouseWithUsers(state),
+    isLoading: isLoading(state),
+    error: hasError(state)
   }
 }
 
@@ -79,5 +65,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default createPage(mapStateToProps, mapDispatchToProps)
-                          (withRouter(Houses), reducers)
+export default createPage(mapStateToProps, mapDispatchToProps)(withRouter(Houses), reducers)

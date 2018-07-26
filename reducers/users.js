@@ -32,4 +32,8 @@ const users = (state =
   }
 }
 
+export const isFetching = (state) => state.isFetching
+export const isError = (state) => state.error 
+export const getUsers = (state) => state.data
+
 export default users;

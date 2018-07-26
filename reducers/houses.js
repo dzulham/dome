@@ -32,4 +32,8 @@ const houses = (state =
   }
 }
 
-export default houses;
+export const isFetching = (state) => state.isFetching
+export const isError = (state) => state.error 
+export const getHouses = (state) => state.data
+
+export default houses

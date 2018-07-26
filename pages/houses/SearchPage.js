@@ -5,11 +5,10 @@ import PropTypes from "prop-types"
 import React from "react"
 
 class SearchPage extends React.Component {
-  
+
   static propTypes = {
     router: PropTypes.object.isRequired,
-    houses: PropTypes.array.isRequired,
-    users: PropTypes.array.isRequired
+    houses: PropTypes.array.isRequired
   }
 
   constructor(props) {
@@ -19,42 +18,33 @@ class SearchPage extends React.Component {
     }
 
     this.handleSearch = this.handleSearch.bind(this)
-    this.reduceDataWithQuery = this.reduceDataWithQuery.bind(this)
+    this.findHouseWithQuery = this.findHouseWithQuery.bind(this)
   }
 
   handleSearch(query) {
     this.setState({ query })
   }
 
-  reduceDataWithQuery(houses, users) {
+  findHouseWithQuery(houses) {
     const query = this.state.query.toLowerCase()
-    const reduced = houses.reduce(
-      (result, h) => {
-        const house = {
-          ...h,
-          user: users.find(u => u.id === h.ownerId)
-        }
-        
-        const details = [
-          house.name,
-          house.price,
-          house.user.address
-        ].join(' ').toLowerCase()
+    const filtered = houses.filter((house) => {
+      const details = [
+        house.name,
+        house.price,
+        house.user.address
+      ].join(' ').toLowerCase()
 
-        if(details.indexOf(query) !== -1) {
-          result.push(house)
-        }
-        return result
-      }, [])
+      return details.indexOf(query) !== -1
+    })
 
-    return reduced
+    return filtered
   }
 
   render() {
-    const { houses, users, router } = this.props
+    const { houses, router } = this.props
 
     const startTime = new Date()
-    const data = this.reduceDataWithQuery(houses, users)
+    const data = this.findHouseWithQuery(houses)
     const endTime = new Date()
     const queryTime = (endTime - startTime).toFixed(3)
 

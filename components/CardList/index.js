@@ -20,7 +20,7 @@ class CardList extends Component {
             return (
               <Card
                 onClick={() => {
-                  Router.push("/houses?house=" + house.id)
+                  Router.push("/houses?id=" + house.id)
                 }}
                 key={house.id}
                 title={house.name}
