@@ -5,6 +5,7 @@ import actions from "../../actions";
 import SearchPage from "./SearchPage";
 import HousePage from "./HousePage";
 import Loading from "../../components/Loading"
+import Layout from "../../components/Layout"
 import PropTypes from "prop-types"
 import React from "react"
 import { withRouter } from "next/router"
@@ -37,15 +38,15 @@ class Houses extends React.Component {
     const viewing = this.props.router.query.id
 
     return (
-      <div>
+      <Layout>
         {
           isLoading && <Loading text="fetching..." /> ||
-          error && <Loading text="an error occured" /> ||
+          error && <Loading text="an error occured." /> ||
           viewing &&
-          <HousePage house={houses.find(h => String(h.id) === router.query.id) || {}} /> ||
+          <HousePage houses={houses} id={router.query.id} /> ||
           <SearchPage houses={houses} router={router} />
         }
-      </div>
+      </Layout>
     )
   }
 }

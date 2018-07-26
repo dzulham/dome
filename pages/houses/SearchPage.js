@@ -1,4 +1,3 @@
-import Layout from "../../components/Layout"
 import SearchPanel from "../../components/SearchPanel"
 import CardList from "../../components/CardList"
 import PropTypes from "prop-types"
@@ -49,7 +48,7 @@ class SearchPage extends React.Component {
     const queryTime = (endTime - startTime).toFixed(3)
 
     return (
-      <Layout>
+      <React.Fragment>
         <SearchPanel
           placeholder="Search another home..."
           query={this.state.query}
@@ -58,7 +57,7 @@ class SearchPage extends React.Component {
           onSearch={this.handleSearch}
           router={router} />
         <CardList houses={data} />
-      </Layout>
+      </React.Fragment>
     )
   }
 }
