@@ -24,7 +24,9 @@ class Card extends Component
 
     return (
       <div onClick={onClick} className={styles.card}>
-        <img src={image} alt={image} />
+        <div className={styles.placeholder}>
+          <img src={image} alt={image} />
+        </div>
         <h3>{title}</h3>
         <div className={styles.detail}>
           <div className={styles.data}>

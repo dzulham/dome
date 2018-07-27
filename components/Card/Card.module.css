@@ -8,8 +8,14 @@
   text-align: start;
 }
 
-.card > img {
+.placeholder {
+  min-height: 180px;
+  background: linear-gradient(#eeeeee 10%, white);
+}
+
+.placeholder > img {
   width: 100%;
+  color: #dddddd;
 }
 
 .data {
