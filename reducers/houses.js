@@ -1,6 +1,6 @@
 import actions from "../actions"
 
-const { FETCH_HOUSES, FETCH_HOUSES_SUCCESS, FETCH_HOUSES_FAILED } = actions.houses
+const { FETCH_HOUSES_REQUEST, FETCH_HOUSES_SUCCESS, FETCH_HOUSES_FAILURE } = actions.houses
 
 const houses = (state =
   {
@@ -11,7 +11,7 @@ const houses = (state =
   , action) => {
 
   switch (action.type) {
-    case FETCH_HOUSES:
+    case FETCH_HOUSES_REQUEST:
       return {
         ...state,
         isFetching: true,
@@ -22,7 +22,7 @@ const houses = (state =
         isFetching: false,
         data: action.houses
       }
-    case FETCH_HOUSES_FAILED:
+    case FETCH_HOUSES_FAILURE:
       return {
         ...state,
         isFetching: false,

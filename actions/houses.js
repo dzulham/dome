@@ -2,7 +2,7 @@ import fetch from "isomorphic-fetch"
 
 export function fetchHouses() {
   return (dispatch) => {
-    dispatch(fetchHousesNew())
+    dispatch(fetchHousesRequest())
     fetch('https://dome.now.sh/api/houses')
       .then(
         response => {
@@ -15,17 +15,17 @@ export function fetchHouses() {
       .then(houses => dispatch(fetchHousesSuccess(houses))
       )
       .catch(error => {
-        const errorString = String(error).toLowerCase()
-        dispatch(fetchHousesFailed(errorString))
+        const err = String(error).toLowerCase()
+        dispatch(fetchHousesFailure(err))
       }
     )
   }
 }
 
-export const FETCH_HOUSES = "FETCH_HOUSES"
-function fetchHousesNew() {
+export const FETCH_HOUSES_REQUEST = "FETCH_HOUSES_REQUEST"
+function fetchHousesRequest() {
   return {
-    type: FETCH_HOUSES
+    type: FETCH_HOUSES_REQUEST
   }
 }
 
@@ -37,10 +37,10 @@ function fetchHousesSuccess(houses) {
   }
 }
 
-export const FETCH_HOUSES_FAILED = "FETCH_HOUSES_FAILED"
-function fetchHousesFailed(error) {
+export const FETCH_HOUSES_FAILURE = "FETCH_HOUSES_FAILURE"
+function fetchHousesFailure(error) {
   return {
-    type: FETCH_HOUSES_FAILED,
+    type: FETCH_HOUSES_FAILURE,
     error
   }
 }
