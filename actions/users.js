@@ -2,7 +2,7 @@ import fetch from "isomorphic-fetch"
 
 export function fetchUsers() {
   return (dispatch) => {
-    dispatch(fetchUsersNew())
+    dispatch(fetchUsersRequest())
     fetch('https://dome.now.sh/api/users')
       .then(
         response => {
@@ -15,17 +15,17 @@ export function fetchUsers() {
       .then(users => dispatch(fetchUsersSuccess(users))
       )
       .catch(error => {
-        const errorString = String(error).toLowerCase()
-        dispatch(fetchUsersFailed(errorString))
+        const err = String(error).toLowerCase()
+        dispatch(fetchUsersFailed(err))
       }
       );
   };
 }
 
-export const FETCH_USERS = "FETCH_USERS"
-function fetchUsersNew() {
+export const FETCH_USERS_REQUEST = "FETCH_USERS_REQUEST"
+function fetchUsersRequest() {
   return {
-    type: FETCH_USERS
+    type: FETCH_USERS_REQUEST
   }
 }
 
@@ -37,10 +37,10 @@ function fetchUsersSuccess(users) {
   }
 }
 
-export const FETCH_USERS_FAILED = "FETCH_USERS_FAILED"
+export const FETCH_USERS_FAILURE = "FETCH_USERS_FAILURE"
 function fetchUsersFailed(error) {
   return {
-    type: FETCH_USERS_FAILED,
+    type: FETCH_USERS_FAILURE,
     error
   }
 }

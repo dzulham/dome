@@ -1,6 +1,6 @@
 import actions from "../actions"
 
-const { FETCH_USERS, FETCH_USERS_SUCCESS, FETCH_USERS_FAILED } = actions.users
+const { FETCH_USERS_REQUEST, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE } = actions.users
 
 const users = (state =
   {
@@ -11,7 +11,7 @@ const users = (state =
   , action) => {
 
   switch (action.type) {
-    case FETCH_USERS:
+    case FETCH_USERS_REQUEST:
       return {
         ...state,
         isFetching: true,
@@ -22,7 +22,7 @@ const users = (state =
         isFetching: false,
         data: action.users
       }
-    case FETCH_USERS_FAILED:
+    case FETCH_USERS_FAILURE:
       return {
         ...state,
         isFetching: false,
