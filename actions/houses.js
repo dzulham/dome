@@ -1,24 +1,16 @@
 import fetch from "isomorphic-fetch"
 
 export function fetchHouses() {
-  return (dispatch) => {
+  return async dispatch => {
     dispatch(fetchHousesRequest())
-    fetch('https://dome.now.sh/api/houses')
-      .then(
-        response => {
-          if (!response.ok) {
-            throw Error(response.status);
-          }
-          return response.json()
-        }
-      )
-      .then(houses => dispatch(fetchHousesSuccess(houses))
-      )
-      .catch(error => {
-        const err = String(error).toLowerCase()
-        dispatch(fetchHousesFailure(err))
-      }
-    )
+    const response = await fetch('https://dome.now.sh/api/houses')
+    if (response.ok) {
+      const houses = await response.json()
+      dispatch(fetchHousesSuccess(houses))
+    } else {
+      const err = response.statusText.toLowerCase()
+      dispatch(fetchHousesFailure(err))
+    }
   }
 }
 

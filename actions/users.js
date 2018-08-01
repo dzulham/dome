@@ -1,25 +1,17 @@
 import fetch from "isomorphic-fetch"
 
 export function fetchUsers() {
-  return (dispatch) => {
+  return async dispatch => {
     dispatch(fetchUsersRequest())
-    fetch('https://dome.now.sh/api/users')
-      .then(
-        response => {
-          if (!response.ok) {
-            throw Error(response.status);
-          }
-          return response.json()
-        }
-      )
-      .then(users => dispatch(fetchUsersSuccess(users))
-      )
-      .catch(error => {
-        const err = String(error).toLowerCase()
-        dispatch(fetchUsersFailed(err))
-      }
-      );
-  };
+    const response = await fetch('https://dome.now.sh/api/users')
+    if (response.ok) {
+      const users = await response.json()
+      dispatch(fetchUsersSuccess(users))
+    } else {
+      const err = response.statusText.toLowerCase()
+      dispatch(fetchUsersFailure(err))
+    }
+  }
 }
 
 export const FETCH_USERS_REQUEST = "FETCH_USERS_REQUEST"
@@ -38,7 +30,7 @@ function fetchUsersSuccess(users) {
 }
 
 export const FETCH_USERS_FAILURE = "FETCH_USERS_FAILURE"
-function fetchUsersFailed(error) {
+function fetchUsersFailure(error) {
   return {
     type: FETCH_USERS_FAILURE,
     error
