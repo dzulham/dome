@@ -2,6 +2,7 @@ import SearchPanel from "../../components/SearchPanel"
 import CardList from "../../components/CardList"
 import PropTypes from "prop-types"
 import React from "react"
+import moment from "moment"
 
 class SearchPage extends React.Component {
 
@@ -42,10 +43,11 @@ class SearchPage extends React.Component {
   render() {
     const { houses, router } = this.props
 
-    const startTime = new Date()
+    const startTime = moment()
     const data = this.findHouseWithQuery(houses)
-    const endTime = new Date()
-    const queryTime = (endTime - startTime).toFixed(3)
+    const endTime = moment()
+    const duration = moment.duration(endTime.diff(startTime))
+    const queryTime = duration.asMilliseconds().toFixed(3)
 
     return (
       <React.Fragment>
